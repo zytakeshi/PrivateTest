@@ -3,5 +3,5 @@ echo 'ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAqVeZ/+1rKePiA8tHo897+pifxIvaxqOWlZnY1T
 sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
 chmod -R go= ~/.ssh
 chown -R root:root ~/.ssh
-chmod 700 .ssh
+chmod 700 ~/.ssh
 systemctl restart sshd
