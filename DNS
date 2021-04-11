@@ -1,0 +1,88 @@
+{
+  "dns": {
+    "servers": [
+      {
+        "address": "dns节点IP",
+        "port": 53,
+        "domains": [
+          "domain:netflix.com",
+          "domain:netflix.net",
+          "domain:nflximg.net",
+          "domain:nflxvideo.net",
+          "domain:nflxso.net",
+          "domain:nflxext.com"
+        ]
+      },
+      "223.5.5.5",
+      "8.8.8.8"
+    ]
+  },
+  "api": {
+    "services": [
+      "HandlerService",
+      "StatsService"
+    ],
+    "tag": "api"
+  },
+  "stats": {
+  },
+  "inbound": {
+    "domainOverride": [
+      "http",
+      "tls"
+    ],
+    "port": 26580,
+    "protocol": "vmess",
+    "settings": {
+      "clients": []
+    },
+    "streamSettings": {
+      "network": "tcp"
+    },
+    "tag": "proxy"
+  },
+  "inboundDetour": [{
+    "listen": "0.0.0.0",
+    "port": 8301,
+    "protocol": "dokodemo-door",
+    "settings": {
+      "address": "0.0.0.0"
+    },
+    "tag": "api"
+  }],
+  "log": {
+    "loglevel": "debug",
+    "access": "/var/log/v2ray/access.log",
+    "error": "/var/log/v2ray/error.log"
+  },
+  "outbound": {
+    "protocol": "freedom",
+     "settings": {
+        "domainStrategy": "UseIP"
+      }
+  },
+  "routing": {
+    "settings": {
+      "rules": [{
+        "inboundTag": [
+          "api"
+        ],
+        "outboundTag": "api",
+        "type": "field"
+      }]
+    },
+    "strategy": "rules"
+  },
+  "policy": {
+    "levels": {
+      "1": {
+        "handshake": 4,
+        "connIdle": 300,
+        "uplinkOnly": 5,
+        "downlinkOnly": 30,
+        "statsUserUplink": true,
+        "statsUserDownlink": true
+      }
+    }
+  }
+}
